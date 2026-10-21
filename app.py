@@ -207,7 +207,7 @@ st.markdown(f"""
     <div class="dashboard-container">
         <div class="stat-box"><div class="stat-title">總人數</div><div class="stat-value">{total_people}</div></div>
         <div class="stat-box"><div class="stat-title">已中獎</div><div class="stat-value" style="color: #ff4b4b;">{drawn_count}</div></div>
-        <div class="stat-box"><div class="stat-title">剩餘可抽</div><div class="stat-value">{remain_count}</div></div>
+        <div class="stat-box"><div class="stat-title">剩餘人數</div><div class="stat-value">{remain_count}</div></div>
         <div class="stat-box"><div class="stat-title">中獎機率</div><div class="stat-value" style="color: #00FF7F;">{win_rate}%</div></div>
     </div>
 """, unsafe_allow_html=True)
@@ -224,7 +224,7 @@ winner_placeholder = st.empty()
 # 按鈕置中與寬度縮小調整 (比例為 1.5 : 1 : 1.5)
 _, btn_col, _ = st.columns([1.5, 1, 1.5])
 with btn_col:
-    draw_clicked = st.button("🎰 加碼抽獎!!GO!!", use_container_width=True)
+    draw_clicked = st.button("🎰 GO!!", use_container_width=True)
 
 # ==========================================
 # 4. 抽獎與動畫邏輯
