@@ -7,10 +7,10 @@ import base64
 # ⚙️ 參數設定區
 # ==========================================
 # 👇 請將你的背景圖片上傳到 GitHub，並將檔名填寫在這裡
-BG_IMAGE_PATH = "bg.jpg"
+BG_IMAGE_PATH = "0002.jpg"
 
-BASE_DELAY = 0.015       
-BRAKE_FACTOR = 0.15      
+BASE_DELAY = 0.3       
+BRAKE_FACTOR = 0.3      
 STOP_FRAMES = [20, 40, 60, 80, 100]  
 
 # ==========================================
@@ -194,7 +194,7 @@ if "drawn_roster" not in st.session_state:
 # ==========================================
 # 3. 主畫面版面配置
 # ==========================================
-st.markdown('<div class="main-title">🎉 長官加碼幸運抽獎 🎉</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-title">🎉 加碼幸運抽獎 🎉</div>', unsafe_allow_html=True)
 
 # 計算戰情資訊
 total_people = len(st.session_state.FULL_ROSTER)
