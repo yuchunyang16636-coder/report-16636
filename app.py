@@ -1,14 +1,41 @@
 import streamlit as st
 import time
 import random
+import base64
 
 # ==========================================
 # ⚙️ 參數設定區
 # ==========================================
-BG_IMAGE_URL = "https://images.unsplash.com/photo-1478147427282-58a87a120781?q=80&w=2070&auto=format&fit=crop"
+# 👇 請將你的背景圖片上傳到 GitHub，並將檔名填寫在這裡
+BG_IMAGE_PATH = "bg.jpg"
+
 BASE_DELAY = 0.015       
 BRAKE_FACTOR = 0.15      
 STOP_FRAMES = [20, 40, 60, 80, 100]  
+
+# ==========================================
+# 圖片轉碼工具 (讓 Streamlit 能讀取本地圖片做為背景)
+# ==========================================
+def get_base64_of_bin_file(bin_file):
+    try:
+        with open(bin_file, 'rb') as f:
+            data = f.read()
+        return base64.b64encode(data).decode()
+    except FileNotFoundError:
+        return ""
+
+bg_base64 = get_base64_of_bin_file(BG_IMAGE_PATH)
+
+# 判斷是否有成功讀取到圖片
+if bg_base64:
+    bg_css = f"""
+        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("data:image/jpeg;base64,{bg_base64}");
+        background-size: cover !important;
+        background-position: center !important;
+        background-attachment: fixed !important;
+    """
+else:
+    bg_css = "background: #222;"
 
 # ==========================================
 # 1. 頁面與 CSS 視覺設定
@@ -23,10 +50,7 @@ st.markdown(f"""
     button[title="View fullscreen"] {{ display: none !important; }}
     
     .stApp {{
-        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("{BG_IMAGE_URL}");
-        background-size: cover !important;
-        background-position: center !important;
-        background-attachment: fixed !important;
+        {bg_css}
     }}
     
     .main-title {{
@@ -197,10 +221,10 @@ for p in placeholders:
 
 winner_placeholder = st.empty()
 
-# 按鈕置中
-_, btn_col, _ = st.columns([1, 2, 1])
+# 按鈕置中與寬度縮小調整 (比例為 1.5 : 1 : 1.5)
+_, btn_col, _ = st.columns([1.5, 1, 1.5])
 with btn_col:
-    draw_clicked = st.button("🎰 啟動加碼抽獎", use_container_width=True)
+    draw_clicked = st.button("🎰 加碼抽獎!!GO!!", use_container_width=True)
 
 # ==========================================
 # 4. 抽獎與動畫邏輯
@@ -237,14 +261,13 @@ if draw_clicked:
             time.sleep(current_delay)
         
         st.balloons()
-        # 取消打字特效，直接乾脆顯示
         winner_placeholder.markdown(f'<div class="winner-name">🎊 恭喜中獎：{winner_name} 🎊</div>', unsafe_allow_html=True)
 
 # ==========================================
 # 5. 公開中獎名單 (清晰卡片版)
 # ==========================================
 st.markdown("<br><br>", unsafe_allow_html=True)
-st.markdown('<h2 style="color: #FFD700; text-align: center; text-shadow: 2px 2px 5px rgba(0,0,0,0.8);">🏆 歷屆加碼中獎名單</h2>', unsafe_allow_html=True)
+st.markdown('<h2 style="color: #FFD700; text-align: center; text-shadow: 2px 2px 5px rgba(0,0,0,0.8);">🏆 加碼中獎名單</h2>', unsafe_allow_html=True)
 
 if st.session_state.drawn_roster:
     cards_html = '<div class="winner-card-container">'
