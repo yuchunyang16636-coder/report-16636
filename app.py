@@ -7,7 +7,7 @@ import base64
 # ⚙️ 參數設定區
 # ==========================================
 # 👇 請將你的背景圖片上傳到 GitHub，並將檔名填寫在這裡
-BG_IMAGE_PATH = "0002.jfif"
+BG_IMAGE_PATH = "IMG_3821.jpg"
 
 BASE_DELAY = 0.015       
 BRAKE_FACTOR = 0.15      
